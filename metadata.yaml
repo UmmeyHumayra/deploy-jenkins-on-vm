@@ -1,0 +1,146 @@
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  annotations:
+    autogenSpecType: SINGLE_VM
+    config.kubernetes.io/local-config: "true"
+  name: marketplace-tools
+spec:
+  content: {}
+  info:
+    actuationTool:
+      flavor: Terraform
+      version: '>= 1.2'
+    description: {}
+    softwareGroups:
+    - software:
+      - title: Debian
+        version: "12"
+      type: SG_OS
+    - software:
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: Apache Portable Runtime (APR)
+        version: 1.7.6
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: Apache utilities (APR)
+        version: 1.6.3
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: Apache
+        version: 2.4.65
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: ModSecurity2
+        version: 2.9.12
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: ModSecurity
+        version: 3.0.14
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: ModSecurity Apache Connector
+        version: 0.20210819.0
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: Bncert Tool
+        version: 2.0.1
+      - licenseUrl: https://spdx.org/licenses/MIT.html
+        title: jenkins plugin manager
+        version: 2.13.2
+      - licenseUrl: https://spdx.org/licenses/MIT.html
+        title: Jenkins
+        version: 2.516.3
+      - licenseUrl: https://spdx.org/licenses/BSD-3-Clause.html
+        title: nss_wrapper
+        version: 1.1.16
+      - licenseUrl: https://spdx.org/licenses/MIT.html
+        title: Jenkins Swarm
+        version: 3.51.0
+      - licenseUrl: https://spdx.org/licenses/GPL-2.0-only.html
+        title: jre
+        version: 21.0.8-12
+      - licenseUrl: https://spdx.org/licenses/Apache-2.0.html
+        title: render-template
+        version: 1.0.9
+    title: Google Cloud Marketplace Terraform Module
+    version: "1.0"
+  interfaces:
+    outputs:
+    - description: Machine type for the compute instance.
+      name: instance_machine_type
+    - description: External IP of the compute instance.
+      name: instance_nat_ip
+    - description: Self-link for the network of the compute instance.
+      name: instance_network
+    - description: Self-link for the compute instance.
+      name: instance_self_link
+    - description: Zone for the compute instance.
+      name: instance_zone
+    - description: Site Url
+      name: site_url
+    - description: Username for Admin password.
+      name: admin_user
+    - description: Password for Admin.
+      name: admin_password
+    variables:
+    - description: The ID of the project in which to provision resources.
+      name: project_id
+      required: true
+      varType: string
+    - description: The name of the deployment and VM instance.
+      name: goog_cm_deployment_name
+      required: true
+      varType: string
+    - defaultValue: projects/mpi-bitnami-launchpad/global/images/jenkins-2-516-3-r0-debian-12-amd64
+      description: The image name for the disk for the VM instance.
+      name: source_image
+      varType: string
+    - description: The zone for the solution to be deployed.
+      name: zone
+      required: true
+      varType: string
+    - defaultValue: pd-standard
+      description: The boot disk type for the VM instance.
+      name: boot_disk_type
+      varType: string
+    - defaultValue: 10
+      description: The boot disk size for the VM instance in GBs
+      name: boot_disk_size
+      varType: integer
+    - defaultValue: g1-small
+      description: The machine type to create, e.g. e2-small
+      name: machine_type
+      varType: string
+    - defaultValue:
+      - default
+      description: The network name to attach the VM instance.
+      name: networks
+      varType: list(string)
+    - defaultValue: []
+      description: The sub network name to attach the VM instance.
+      name: sub_networks
+      varType: list(string)
+    - defaultValue:
+      - EPHEMERAL
+      description: The external IPs assigned to the VM for public access.
+      name: external_ips
+      varType: list(string)
+    - defaultValue: true
+      description: Allow HTTP traffic from the Internet
+      name: enable_tcp_80
+      varType: bool
+    - defaultValue: ""
+      description: Source IP ranges for HTTP traffic
+      name: tcp_80_source_ranges
+      varType: string
+    - defaultValue: true
+      description: Allow HTTPS traffic from the Internet
+      name: enable_tcp_443
+      varType: bool
+    - defaultValue: ""
+      description: Source IP ranges for HTTPS traffic
+      name: tcp_443_source_ranges
+      varType: string
+    - defaultValue: true
+      description: Enables Cloud Logging.
+      name: enable_cloud_logging
+      varType: bool
+    - defaultValue: true
+      description: Enables Cloud Monitoring.
+      name: enable_cloud_monitoring
+      varType: bool
